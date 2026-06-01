@@ -71,9 +71,10 @@ while running:
             running = False
 
     elif estado == "QUIZ":
-
         update_quiz(
             screen,
+            dedo_x,
+            dedo_y,
             font
         )
 
