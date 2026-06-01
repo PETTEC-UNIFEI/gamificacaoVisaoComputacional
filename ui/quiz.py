@@ -5,9 +5,7 @@ from config import TEMPO_SELECAO
 from ui.button import draw_button
 from data.questions import QUESTIONS
 
-# ==========================
 # LOGO
-# ==========================
 
 logo = pygame.image.load("assets/logo_pet.png")
 
@@ -25,9 +23,7 @@ logo = pygame.transform.scale(
     (nova_largura, nova_altura)
 )
 
-# ==========================
 # ESTADO DO QUIZ
-# ==========================
 
 question_index = 0
 score = 0
@@ -41,9 +37,7 @@ feedback_time = None
 
 correct_answer = None
 
-# ==========================
 # ALTERNATIVAS
-# ==========================
 
 alternativas = [
     pygame.Rect(70, 250, 300, 80),
@@ -69,9 +63,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
 
     pergunta = QUESTIONS[question_index]
 
-    # ==========================
     # DETECÇÃO DE HOVER
-    # ==========================
 
     novo_hover = None
 
@@ -108,18 +100,14 @@ def update_quiz(screen, dedo_x, dedo_y, font):
 
             feedback_time = time.time()
 
-    # ==========================
     # LOGO
-    # ==========================
 
     screen.blit(
         logo,
         ((800 - nova_largura) // 2, 10)
     )
 
-    # ==========================
     # PERGUNTA
-    # ==========================
 
     font_pergunta = pygame.font.SysFont(
         "Arial",
@@ -138,10 +126,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
     )
 
     screen.blit(texto, texto_rect)
-
-    # ==========================
     # ALTERNATIVAS
-    # ==========================
 
     for i, opcao in enumerate(pergunta["options"]):
 
@@ -187,9 +172,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
             progress
         )
 
-    # ==========================
     # SCORE
-    # ==========================
 
     score_text = font.render(
         f"Score: {score}",
@@ -199,9 +182,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
 
     screen.blit(score_text, (20, 20))
 
-    # ==========================
     # FEEDBACK
-    # ==========================
 
     if feedback is not None:
 
