@@ -13,6 +13,7 @@ hover_start = None
 hovered = None
 selected = None
 
+
 def update_menu(screen, dedo_x, dedo_y, font):
 
     global hover_start, hovered, selected
@@ -33,7 +34,7 @@ def update_menu(screen, dedo_x, dedo_y, font):
             selected = hovered
 
     # título
-    title = font.render("TOUCHLESS QUIZ", True, (255,255,255))
+    title = font.render("TOUCHLESS QUIZ", True, (255, 255, 255))
     screen.blit(title, (400 - 140, 120))
 
     for nome, rect in buttons.items():
@@ -47,7 +48,20 @@ def update_menu(screen, dedo_x, dedo_y, font):
             color = (0, 200, 120)
 
         progress = 0
-        if nome == hovered and hover_start:
-            progress = min((time.time() - hover_start)/TEMPO_SELECAO, 1)
 
-        draw_button(screen, rect, nome, font, color, progress)
+        if nome == hovered and hover_start:
+            progress = min(
+                (time.time() - hover_start) / TEMPO_SELECAO,
+                1
+            )
+
+        draw_button(
+            screen,
+            rect,
+            nome,
+            font,
+            color,
+            progress
+        )
+
+    return selected
