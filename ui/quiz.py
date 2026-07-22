@@ -1,9 +1,21 @@
 import pygame
 import time
 
-from config import TEMPO_SELECAO
+from config import TEMPO_SELECAO, WIDTH, HEIGHT
 from ui.button import draw_button
 from data.questions import QUESTIONS
+
+# layout original foi desenhado para 800x600; escalamos proporcionalmente
+SCALE_X = WIDTH / 800
+SCALE_Y = HEIGHT / 600
+
+
+def scaled_rect(x, y, w, h):
+    return pygame.Rect(
+        int(x * SCALE_X), int(y * SCALE_Y),
+        int(w * SCALE_X), int(h * SCALE_Y)
+    )
+
 
 # LOGO
 
@@ -12,7 +24,7 @@ logo = pygame.image.load("assets/logo_pet.png")
 largura_original = logo.get_width()
 altura_original = logo.get_height()
 
-nova_altura = 140
+nova_altura = int(140 * SCALE_Y)
 
 nova_largura = int(
     largura_original * (nova_altura / altura_original)
@@ -40,10 +52,10 @@ correct_answer = None
 # ALTERNATIVAS
 
 alternativas = [
-    pygame.Rect(70, 250, 300, 80),
-    pygame.Rect(430, 250, 300, 80),
-    pygame.Rect(70, 370, 300, 80),
-    pygame.Rect(430, 370, 300, 80)
+    scaled_rect(70, 250, 300, 80),
+    scaled_rect(430, 250, 300, 80),
+    scaled_rect(70, 370, 300, 80),
+    scaled_rect(430, 370, 300, 80)
 ]
 
 
@@ -104,7 +116,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
 
     screen.blit(
         logo,
-        ((800 - nova_largura) // 2, 10)
+        ((WIDTH - nova_largura) // 2, int(10 * SCALE_Y))
     )
 
     # PERGUNTA
@@ -122,7 +134,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
     )
 
     texto_rect = texto.get_rect(
-        center=(400, 210)
+        center=(WIDTH // 2, int(210 * SCALE_Y))
     )
 
     screen.blit(texto, texto_rect)
@@ -205,7 +217,7 @@ def update_quiz(screen, dedo_x, dedo_y, font):
         )
 
         feedback_rect = feedback_text.get_rect(
-            center=(400, 540)
+            center=(WIDTH // 2, int(540 * SCALE_Y))
         )
 
         screen.blit(

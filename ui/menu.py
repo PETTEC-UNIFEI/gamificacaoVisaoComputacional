@@ -1,12 +1,24 @@
 import pygame
 import time
-from config import TEMPO_SELECAO
+from config import TEMPO_SELECAO, WIDTH, HEIGHT
 from ui.button import draw_button
 
+# layout original foi desenhado para 800x600; escalamos proporcionalmente
+SCALE_X = WIDTH / 800
+SCALE_Y = HEIGHT / 600
+
+
+def scaled_rect(x, y, w, h):
+    return pygame.Rect(
+        int(x * SCALE_X), int(y * SCALE_Y),
+        int(w * SCALE_X), int(h * SCALE_Y)
+    )
+
+
 buttons = {
-    "Iniciar": pygame.Rect(250, 220, 300, 60),
-    "Score": pygame.Rect(250, 300, 300, 60),
-    "Sair": pygame.Rect(250, 380, 300, 60)
+    "Iniciar": scaled_rect(250, 220, 300, 60),
+    "Score": scaled_rect(250, 300, 300, 60),
+    "Sair": scaled_rect(250, 380, 300, 60)
 }
 
 hover_start = None
@@ -35,7 +47,8 @@ def update_menu(screen, dedo_x, dedo_y, font):
 
     # título
     title = font.render("TOUCHLESS QUIZ", True, (255, 255, 255))
-    screen.blit(title, (400 - 140, 120))
+    title_rect = title.get_rect(center=(WIDTH // 2, int(120 * SCALE_Y)))
+    screen.blit(title, title_rect)
 
     for nome, rect in buttons.items():
 
